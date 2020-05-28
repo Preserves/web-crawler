@@ -20,7 +20,7 @@ for link in soup.find_all('a'):
         a.append(link.get('href'))
 download_link = ''.join(a)
 # 檔案下載
-print("下載全國營業(稅籍)登記資料集壓縮擋...")
+print("下載各類初任人員每人每月平均經常性薪資壓縮擋...")
 downloadurl = req.urlopen(download_link)
 zipcontent= downloadurl.read()
 with open("TWRAW.zip", 'wb') as f:
