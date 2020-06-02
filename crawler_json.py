@@ -33,8 +33,42 @@ with zipfile.ZipFile(open('TWRAW.zip', 'rb')) as f:
 
 print('解壓縮完成')
 print('印出json檔案')
+#讀取檔案
+def read_data():
+    with open('107年各教育程度別初任人員每人每月經常性薪資─按大職類分.json', 'r') as f:
+        jdata = f.read()
+        data = json.loads(jdata)
+        return data
 
-with open('107年各教育程度別初任人員每人每月經常性薪資─按大職類分.json', 'r') as f:
-    jdata = f.read()
-    data = json.loads(jdata)
-    print(data)
+
+career = input('請輸入搜尋的產業(工業/礦業/製造業/營建/服務業:')
+eduaction = input('請輸入教育程度(專科/大學/研究所):')
+
+#分析並印出結果
+def analysis(data, career, eduaction):
+    for line in data:
+            if career in line['大職業別']:
+                if eduaction == '專科':
+                    if line['專科-薪資'] == '—' or line['專科-薪資'] == '…':
+                        line['專科-薪資'] = '查無資料'
+                        print(line['大職業別'], ':', line['專科-薪資'], sep='')
+                    else:
+                        print(line['大職業別'], ':', line['專科-薪資'], '元', sep='')
+                elif eduaction == '大學':
+                    if line['大學-薪資'] == '—' or line['大學-薪資'] == '…':
+                        line['大學-薪資'] = '查無資料'
+                        print(line['大職業別'], ':', line['大學-薪資'], sep='')
+                    else:
+                        print(line['大職業別'], ':', line['大學-薪資'], '元', sep='')
+                elif eduaction == '研究所':
+                    if line['研究所-薪資'] == '—' or line['研究所-薪資'] == '…':
+                        line['研究所-薪資'] = '查無資料'
+                        print(line['大職業別'], ':', line['研究所-薪資'], sep='')
+                    else:
+                        print(line['大職業別'], ':', line['研究所-薪資'], '元', sep='')
+def main():
+    data = read_data()
+    analysis(data, career, eduaction)
+
+
+main()
