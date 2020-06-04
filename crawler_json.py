@@ -1,4 +1,4 @@
-# 下載與解壓縮 財政部財政資訊中心-全國營業(稅籍)登記資料集 http://data.gov.tw/node/9400
+#抓取開放平台下載網址，下載檔案並解壓縮，最後分析檔案供使用查詢
 import zipfile #zipfile.ZipFile
 import gzip, json
 import urllib.request as req 
@@ -36,6 +36,8 @@ def download_file(download_link):
     with zipfile.ZipFile(open('壓縮檔.zip', 'rb')) as f:
         f.extractall()  
     print('解壓縮完成')
+    print('')
+    print('~歡迎使用107年各教育程度別初任人員每人每月經常性薪資搜尋功能~')
 
 
 #讀取檔案
@@ -87,7 +89,7 @@ def analysis(data, career, eduaction):
                         print(line['大職業別'], ':', line['研究所-薪資'], '元', sep='')
 
 
-#分析的主程式
+#主程式
 def main():
     download_link = crawler()
     download_file(download_link)
